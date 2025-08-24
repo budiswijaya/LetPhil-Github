@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+        text-align: center;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+    #loading {
+        color: blue;
+        font-weight: bold;
+    }
+    #data {
+        margin-top: 20px;
+        font-size: 18px;
+    }
+</style>
+
+<body>
+    <h1>Simulated API call with loading</h1>
+    <button onclick="fetchData()">Fetch Data</button>
+    <p id="loading" style="display: none">Loading</p>
+    <p id="data"></p>
+</body>
+
+<script>
+    async function fetchData(){
+        const loadingText = document.getElementById("loading");
+        const dataText = document.getElementById("data");
+
+        loadingText.style.display = "block";
+        dataText.textContent = "";
+
+        try{
+            const response = await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    Math.random()> 0.5 > 0 
+                    ? resolve("Data loaded successfully") 
+                    : reject("Error loading data");
+                }, 2000);
+            });
+            dataText.textContent = response;
+        } catch(error){
+            dataText.textContent = "Error loading data";
+        } finally {
+            loadingText.style.display = "none";
+        }
+    }
+</script>
+</html>

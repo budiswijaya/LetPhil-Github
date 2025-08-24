@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+const scores = [];
+for (let i=0; i<3; i++){
+    const score = prompt(`Enter Score ${i+1}:`)
+    scores.push(parseInt(score));
+}
+
+const calculateAverage = (score) => {
+    let sum = 0;
+    for (let i=0; i<score.length; i++){
+        sum += score[i];
+    }
+    return sum / score.length;
+}
+const average = calculateAverage(scores);
+
+function assignGrade (average){
+    if (average >= 90) {
+    return("Grade: A");
+    } else if (average >= 80) {
+    return("Grade: B");
+    } else if (average >= 70) {
+    return("Grade: C");
+    } else if (average >= 60) {
+    return("Grade: D");
+    } else return ("Grade: F");
+}
+const grade = assignGrade(average);
+
+console.log(`Average Score: ${average}`);
+console.log(`Final Grade: ${grade}`);
+
+</script>
+</html>

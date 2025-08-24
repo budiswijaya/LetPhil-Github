@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF//8">
+    <meta name="viewport" content="width=device//width, initial//scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+// **pop()** - Removes the last element from an array
+const plants = ['broccoli', 'cauliflower', 'kale']; 
+const removed = plants.pop(); 
+console.log(plants); // Output: ['broccoli', 'cauliflower'] 
+console.log(removed); // Output: 'kale'
+// Removes and returns the last element.
+
+// **push()** // Adds elements to the end of an array
+const animals = ['pigs', 'goats']; 
+const count = animals.push('cows'); 
+console.log(animals); // Output: ['pigs', 'goats', 'cows'] 
+console.log(count); // Output: 3
+// Returns the new length of the array.
+
+// **shift()** // Removes the first element from an array
+const array1 = [1, 2, 3]; 
+const firstElement = array.shift(); 
+console.log(array1); // Output: [2, 3] 
+console.log(firstElement); // Output: 1
+// Removes and returns the first element.
+
+// **unshift()** // Adds elements to the beginning of an array
+const array = [4, 5, 6]; 
+const newLength = array.unshift(1, 2, 3); 
+console.log(array); // Output: [1, 2, 3, 4, 5, 6] 
+console.log(newLength); // Output: 6
+// Returns the new length of the array.
+
+// **splice()** // Changes array by removing, replacing, or adding elements
+const months = ['Jan', 'March', 'April', 'June']; 
+months.splice(1, 0, 'Feb');     // Insert at index 1 
+console.log(months);            // Output: ['Jan', 'Feb', 'March', 'April', 'June'] 
+
+months.splice(4, 1, 'May');     // Replace element at index 4 
+console.log(months);            // Output: ['Jan', 'Feb', 'March', 'April', 'May']
+// The first parameter is the start index, second is delete count, rest are items to add.
+
+// **filter()** // Creates a new array with elements that pass a test
+const words = ['spray', 'limit', 'elite', 'exuberant']; 
+const result = words.filter(word => word.length > 5); 
+console.log(result); // Output: ["exuberant"]
+// Returns only words with more than 5 characters.
+
+// **map()** // Creates a new array with the results of calling a function on every element
+const numbers = [1, 4, 9]; 
+const roots = numbers.map(Math.sqrt); 
+const doubled = numbers.map((num) => num * 2); 
+console.log(roots); // Output: [1, 2, 3]
+console.log(doubled); // Output: [2, 8, 18]
+
+</script>
+<body>
+    
+</body>
+</html>

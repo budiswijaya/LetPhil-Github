@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="main-heading">Welcome to Javascript</h1>
+    <p class="description">This is a paragraph1</p>
+    <p class="description">This is a paragraph2</p>
+    <p class="description">This is a paragraph3</p>
+
+    <button onclick="changeText()">Click Me</button>
+</body>
+
+<style>
+    .highlight {
+        background-color: yellow;
+        font-weight: bold;
+    }
+
+</style>
+
+<script>
+    function changeText() {
+        document.getElementById("main-heading").textContent = "Hello, World!";
+        document.querySelector(".description").textContent = "This text has been changed!";
+        const paragraphs = document.querySelectorAll(".description");
+        paragraphs.forEach((paragraph, index) => {
+            paragraph.textContent = `Paragraph ${index + 1} has been updated!`;
+        });
+    }
+
+    const heading = document.getElementById("main-heading");
+    heading.textContent = "New Heading Text";
+    heading.innterHTML = "<strong>New Heading Text with Strong</strong>";
+    heading.style.color = "blue";
+    heading.style.fontSize = "24px";
+    heading.textAlign = "center";
+    heading.classList.add("highlight");
+    
+    const allParagraphs = document.querySelectorAll("main-heading");
+    allParagraphs.forEach((paragraph) => console.log(paragraph.textContent));
+
+    const newParagraph = document.createElement("p");
+    newParagraph.textContent = "This is a new paragraph added to the DOM.";
+    document.body.appendChild(newParagraph);
+
+    document.querySelector("button").addEventListener("click", () =>{
+        document.body.removeChild(newParagraph);
+        heading.classList.remove("highlight")
+    })
+
+    const link = document.createElement("a");
+    link.setAttribute("href", "https://www.google.com");
+    link.setAttribute("target", "_blank");
+    link.textContent= "Go to Google";
+    document.body.appendChild(link);
+</script>
+
+</html>

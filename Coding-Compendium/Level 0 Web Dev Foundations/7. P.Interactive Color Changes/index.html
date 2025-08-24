@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+    }
+    .color-btn {
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <h1>Click a button to change the background color</h1>
+    <button class="color-btn">Red</button>
+    <button class="color-btn">Green</button>
+    <button class="color-btn">Blue</button>
+    <button class="color-btn">Yellow</button>
+    <button class="color-btn">Reset</button>
+</body>
+<script>
+    const buttons = document.querySelectorAll('.color-btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const color = button.textContent.toLowerCase();
+            if (color === 'reset') {
+                document.body.style.backgroundColor = '';
+            } else {
+                document.body.style.backgroundColor = color;
+            }
+        });
+    });
+</script>
+</html>

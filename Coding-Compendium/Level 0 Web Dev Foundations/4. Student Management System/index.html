@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+const students = [];
+
+function addstudent(name, age, grade) {
+    const newstudent = {
+        name: name,
+        age: age,
+        grade: grade
+    };
+    students.push(newstudent);
+}
+
+function removestudent(name) {
+    const index = students.findIndex(s => s.name === name);
+    if (index !== -1) {
+        students.splice(index, 1);
+    } else {
+        console.log(`students ${name} not found.`);
+    }
+}
+
+function filterTopstudent(minGrade) {
+    return students.filter(s => s.grade >= minGrade);
+}
+
+function formatstudentList() {
+    return students.map((student) => `${student.name}`);
+}
+
+console.log("students =", students);
+
+addstudent("Alice", 20, 85);
+addstudent("Bob", 22, 90); 
+
+console.log("Student list:");
+console.log(formatstudentList());
+
+</script>
+</html>

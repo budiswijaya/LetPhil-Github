@@ -1,3 +1,9 @@
-# LetPhil Github
+# Welcome to the Git Basics Course
 
-hey
+## Terms
+
+- Repository
+- Commit
+- Branch
+- Merge
+- Push

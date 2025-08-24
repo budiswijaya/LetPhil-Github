@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+const scoreTracker = {
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+  6: 0
+};
+
+function rollDice() {
+  return Math.floor(Math.random() * 6) + 1; // Generates a random number between 1 and 6
+}
+
+function displayScores() {
+  console.log("Current Scores:");
+  for (let i = 1; i <= 6; i++) {
+    console.log(`Score ${i}: ${scoreTracker[i]}`);
+  }
+}
+
+for(let i = 0; i < 10; i++) {
+  const rolledNumber = rollDice();
+  scoreTracker[rolledNumber]++;
+}
+
+
+displayScores();
+</script>
+</html>

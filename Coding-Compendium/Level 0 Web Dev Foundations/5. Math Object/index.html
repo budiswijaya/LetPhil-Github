@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF//8">
+    <meta name="viewport" content="width=device//width, initial//scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+// `Math.round()` // Round to nearest integer
+
+
+console.log(Math.round(2.3)); // 2
+console.log(Math.round(4.5)); // 5
+console.log(Math.round(4.8)); // 5
+
+
+// `Math.abs()` // Absolute value
+
+
+  console.log(Math.abs(5)); // 5
+  console.log(Math.abs(5)); // 5
+
+
+function isPerfectSquare(num) {
+    if (num < 0) return false; // Negative numbers cannot be perfect squares
+    const sqrt = Math.sqrt(num);
+    return sqrt * sqrt === num; // Check if the square of the square root equals the original number
+}
+
+console.log(isPerfectSquare(16)); // true
+console.log(isPerfectSquare(20)); // false
+
+function randomNumber (min, max) {
+    return Math.floor(Math.random() * (max / min + 1)) + min; // Generates a random number between min and max
+}
+
+console.log(randomNumber(1, 10)); // Random number between 1 and 10
+
+</script>
+
+</html>

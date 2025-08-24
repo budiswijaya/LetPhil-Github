@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+</style>
+
+<body>
+    <button id="Btn">Click Me</button>
+    <p id="hoverText">Hover over me</p>
+    <input type="text" id="inputField" placeholder="Type something here..."/>
+    <p id="displayText">displayText</p>
+
+    <select id="dropdown">
+        <option value="">please select</option>
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+        <option value="cherry">Cherry</option>
+    </select>
+    <p id="output"></p>
+</body>
+
+<script>
+    function handleClick() {
+        console.log("Button was clicked!");
+        Btn.removeEventListener("click", handleClick);
+    }
+
+    Btn.addEventListener("click", handleClick);
+
+    const dropdown = document.getElementById("dropdown");
+    const output = document.getElementById("output");
+
+    dropdown.addEventListener("change", () => {
+        const selectedValue = dropdown.value;
+        if (selectedValue) {
+            output.textContent = "You selected: " + selectedValue;
+        } else {
+            output.textContent = "Please select an option.";
+        }
+    });
+
+    const inputField = document.getElementById("inputField");
+    const displayText = document.getElementById("displayText");
+
+    inputField.addEventListener("keyup", () => {
+        displayText.textContent = "You typed: " + event.Target.value;
+    });
+
+    function sayHello(){
+        alert("Hello, World!");
+    }
+    const button = document.getElementById("Btn");
+
+    button.addEventListener("click", () =>{
+        alert("Button was clicked!");
+        sayHello();
+    });
+
+    const text = document.getElementById("hoverText");
+
+    text.addEventListener("mouseover", () => {
+        text.style.color = "red";
+        text.style.fontSize = "20px";
+    });
+
+    text.addEventListener("mouseout", () => {
+        text.style.color = "black";
+        text.style.fontSize = "16px";
+    });
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    padding: 20px;
+}
+
+#taskList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.taskList li {
+    background-color: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+.taskList li:hover {
+    background-color: #e0e0e0;
+}
+</style>
+
+<body>
+    <h1>Todo List</h1>
+    <input type="text" id="taskInput" placeholder="Enter a task"/>
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+</body>
+
+<script>
+const taskInput = document.getElementById('taskInput');
+const taskList = document.getElementById('taskList');
+
+function addTask() {
+    const taskText = taskInput.value.trim();
+    if (taskText === '') {
+        alert('Please enter a task.');
+        return;
+    }
+
+    const taskItem = document.createElement('li');
+    taskItem.textContent = taskText;
+    taskItem.classList.add('task');
+
+    taskItem.addEventListener('click', function() {
+        taskList.removeChild(taskItem);
+    });
+
+    taskList.appendChild(taskItem);
+
+    taskInput.value = '';
+}
+</script>
+
+</html>
