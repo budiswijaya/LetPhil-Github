@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Manipulation</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 id="title"></h1>
+      </header>
+      <section>
+        <h3 class="section-header"></h3>
+        <p class="descripton"></p>
+      </section>
+      <section>
+        <h3 class="section-header"></h3>
+        <p class="descripton"></p>
+      </section>
+      <section>
+        <h3 class="section-header"></h3>
+        <p class="descripton"></p>
+      </section>
+      <footer>
+        <h4 id="footerText"></h4>
+      </footer>
+    </div>
+
+    <script>
+      const title = document.getElementById("title");
+      title.textContent = "Website Title";
+      title.style.color = "hotpink";
+      title.style.backgroundColor = "yellow";
+      title.style.textAlign = "center";
+
+      const sectionHeaders = document.getElementsByClassName("section-header");
+      const descriptionText = document.getElementsByClassName("descripton");
+      const section = document.getElementsByTagName("section");
+      const footerText = document.querySelector("#footerText");
+
+      let headerClickedCount = 0;
+
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      async function makeSections() {
+        await sleep[400];
+
+        for (let i = 0; i < sectionHeaders.length; i++) {
+          sectionHeaders[i].textContent = "Section";
+          descriptionText[i].textContent = "Description";
+          section[i].style.border = "1px solid grey";
+          section[i].style.padding = "10px";
+          section[i].style.margin = "3px 0";
+          await sleep[400];
+        }
+      }
+
+      makeSections();
+
+      footerText.textContent = "2025 Letphil";
+
+      // title.addEventListener("click", function() {
+      //     const numWords = {
+      //         0: "First",
+      //         1: "Second",
+      //         2: "Third"
+      //     };
+      //     sectionHeaders[
+      //         headerClickedCount
+      //     ].textContent = `${numWords[headerClickedCount]} Section`;
+      //     descriptionText[
+      //         headerClickedCount
+      //     ].textContent = `${numWords[headerClickedCount]} Description`;
+      //     section[
+      //         headerClickedCount
+      //     ].style.border = "1px solid grey";
+      //     headerClickedCount++;
+      // });
+
+      // title.addEventListener("click", function() {
+      //     for (let i = 0; i < sectionHeaders.length; i++) {
+      //         console.log("i =", i);
+      //         const currentSectionHeader = sectionHeaders[i];
+      //         if (i === 0) currentSectionHeader.textContent = "First Section";
+      //         else if (i === 1) currentSectionHeader.textContent = "Second Section";
+      //         else if (i === 2) currentSectionHeader.textContent = "Third Section";
+      //     }
+      // });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <input type="text" id="todoInput" placeholder="enter todo" />
+      <button id="add">add</button>
+      <ul id="todoList"></ul>
+    </div>
+    <script>
+      const todoInput = document.getElementById("todoInput");
+      const add = document.getElementById("add");
+      const todoList = document.getElementById("todoList");
+
+      function addTodo() {
+        const todo = todoInput.value;
+        if (todo === "") return alert("Fillout input please...");
+
+        const li = document.createElement("li");
+        li.textContent = todo;
+
+        const button = document.createElement("button");
+        button.textContent = "mark";
+        button.style.marginLeft = "4px";
+        button.addEventListener("click", function () {
+          if (li.style.textDecoration === "line-through") {
+            (li.style.textDecoration = "none"), (button.textContent = "mark");
+          } else (li.style.textDecoration = "line-through"), (button.textContent = "unmark");
+        });
+        li.appendChild(button);
+        todoList.append(li);
+        todoInputvalue = "";
+      }
+
+      add.addEventListener("click", addTodo);
+    </script>
+  </body>
+</html>
