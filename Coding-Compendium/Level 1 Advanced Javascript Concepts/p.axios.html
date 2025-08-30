@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axios HTTP Request Example</title>
+  </head>
+  <style>
+    <style > body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: #121212;
+      color: #f1f1f1;
+    }
+
+    .user-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 10px 0;
+      background-color: #fafafa;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    body.dark .user-card {
+      background-color: #1e1e1e;
+      border-color: #444;
+    }
+
+    /* Switch styling */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+      margin-left: 10px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    /* Loader spinner */
+    .loader {
+      display: none;
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <body>
+    <h1>Random User Generator</h1>
+    <button id="fetchBtn">Fetch 1 Random User</button>
+    <button id="fetchMultipleBtn">Fetch 5 Random User</button>
+
+    <input type="text" id="searchInput" placeholder="Search by name..." />
+    <label class="switch">
+      <input type="checkbox" id="themeToggle" />
+      <span class="slider"></span>
+    </label>
+    <div id="userContainer"></div>
+    <div class="loader" id="loader"></div>
+
+    <button id="ex1Btn">Exercise 1: Filter US Users</button>
+    <button id="ex2Btn">Exercise 2: Count Gender</button>
+    <button id="ex3Btn">Exercise 3: Average Age</button>
+    <p id="exerciseResult"></p>
+  </body>
+  <script>
+    const fetchBtn = document.getElementById("fetchBtn");
+    const fetchMultipleBtn = document.getElementById("fetchMultipleBtn");
+    const searchInput = document.getElementById("searchInput");
+    const userContainer = document.getElementById("userContainer");
+    const loader = document.getElementById("loader");
+    const themeToggle = document.getElementById("themeToggle");
+
+    let users = [];
+
+    fetchBtn.addEventListener("click", () => fetchUsers(1));
+    fetchMultipleBtn.addEventListener("click", () => fetchUsers(5));
+    searchInput.addEventListener("input", filterUsers);
+    themeToggle.addEventListener("change", toggleTheme);
+
+    function fetchUsers(count) {
+      users = [];
+      userContainer.innerHTML = "";
+      loader.style.display = "block";
+      axios
+        .get(`https://randomuser.me/api/?results=${count}`)
+        .then((response) => {
+          loader.style.display = "none";
+          users = response.data.results;
+          renderUsers(users);
+        })
+        .catch((error) => {
+          loader.style.display = "none";
+          userContainer.innerHTML = "<p>Error fetching data</p>";
+          console.error(error);
+        });
+    }
+
+    function renderUsers(list) {
+      userContainer.innerHTML = "";
+      list.forEach((user) => {
+        let card = document.createElement("div");
+        card.className = "user-card";
+        card.innerHTML = `
+            <img src="${user.picture.medium}" alt="user-picture"/>
+            <h3>Name: ${user.name.first} ${user.name.last}</h3>
+            <p>Age: ${user.dob.age}</p>
+            <p>Email: ${user.email}</p>
+            <p>Located: ${user.location.city} ${user.location.country}</p>
+            <p>Phone-Number: ${user.phone}</p>
+        `;
+        userContainer.appendChild(card);
+      });
+    }
+
+    function filterUsers() {
+      let term = searchInput.value.toLowerCase();
+      let filtered = users.filter((u) => {
+        let fullName = `${u.name.first} ${u.name.last}`.toLowerCase();
+        return fullName.includes(term);
+      });
+      renderUsers(filtered);
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark", themeToggle.checked);
+    }
+
+    const ex1Btn = document.getElementById("ex1Btn");
+    const ex2Btn = document.getElementById("ex2Btn");
+    const ex3Btn = document.getElementById("ex3Btn");
+    const exerciseResult = document.getElementById("exerciseResult");
+
+    ex1Btn.addEventListener("click", exercise1);
+    ex2Btn.addEventListener("click", exercise2);
+    ex3Btn.addEventListener("click", exercise3);
+
+    function exercise1() {
+      userContainer.innerHTML = "";
+      exerciseResult.textContent = "";
+
+      loader.style.display = "block";
+
+      axios
+        .get("https://randomuser.me/api/?results=5&nat=us")
+        .then((response) => {
+          loader.style.display = "none";
+          users = response.data.results;
+          renderUsers(users);
+        })
+        .catch((err) => {
+          loader.style.display = "none";
+          userContainer.innerHTML = "<p> Error loading users</p>";
+          console.error("Exercise 1 error", err);
+        });
+    }
+
+    function exercise2() {
+      userContainer.innerHTML = "";
+      exerciseResult.textContent = "Counting..";
+      loader.style.display = "none";
+
+      if (!users.length) {
+        exerciseResult.textContent = "Run Exercise 1 first to load users";
+        return;
+      }
+      let maleCount = 0;
+      let femaleCount = 0;
+      users.forEach((u) => {
+        if (u.gender === "male") maleCount++;
+        else if (u.gender === "female") femaleCount++;
+      });
+      exerciseResult.textContent = `Males: ${maleCount} Females: ${femaleCount} `;
+    }
+
+    function exercise3() {
+      userContainer.innerHTML = "";
+      exerciseResult.textContent = "Calculating...";
+      loader.style.display = "none";
+
+      if (!users.length) {
+        exerciseResult.textContent = "Run Exercise 1 first to load users.";
+        return;
+      }
+
+      const totalAge = users.reduce((sum, u) => sum + u.dob.age, 0);
+      const average = (totalAge / users.length).toFixed(1);
+      exerciseResult.textContent = `Average Age: ${average} `;
+    }
+  </script>
+</html>

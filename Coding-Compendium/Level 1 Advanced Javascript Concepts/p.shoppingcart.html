@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+  </head>
+  <body>
+    <h1>Shopping Cart</h1>
+    <div>
+      <input type="text" id="product-name" placeholder="Enter product name" />
+      <input type="text" id="product-price" placeholder="Enter price" />
+      <button onclick="addProduct()">Add to Cart</button>
+    </div>
+    <ul id="cart-list"></ul>
+    <h2>Total: $<span id="total-price">0</span></h2>
+  </body>
+  <script>
+    let cart = [];
+
+    function renderCart() {
+      const list = document.getElementById("cart-list");
+      const totalPriceEl = document.getElementById("total-price");
+      list.innerHTML = "";
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - ${item.price}`;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.onclick = () => removeProduct(index);
+
+        li.appendChild(removeBtn);
+        list.appendChild(li);
+
+        total += item.price;
+      });
+      totalPriceEl.textContent = total;
+    }
+
+    function addProduct() {
+      const nameInput = document.getElementById("product-name");
+      const priceInput = document.getElementById("product-price");
+
+      const name = nameInput.value.trim();
+      const price = parseFloat(priceInput.value);
+
+      if (name && !isNaN(price) && price > 0) {
+        cart.push({ name, price });
+        nameInput.value = "";
+        priceInput.value = "";
+        renderCart();
+      }
+    }
+
+    function removeProduct(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</html>

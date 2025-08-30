@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Promise Only (fetch)</h1>
+    <p>
+      This loads data immediately without a button (for Promise chaining demo)
+    </p>
+    <div id="user"></div>
+  </body>
+  <script>
+    fetch("https://randomuser.me/api/")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        const user = data.results[0];
+        document.getElementById("user").innerHTML = `
+            <h2>${user.name.first} ${user.name.last}</h2>
+            <img src="${user.picture.large}" alt="${user.name.first} ${user.name.last}">
+            `;
+      })
+      .catch(function (error) {
+        console.error("Promise-based fetch failed:", error);
+      });
+  </script>
+</html>

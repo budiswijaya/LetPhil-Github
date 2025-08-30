@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="output">
+      <div id="searchContainer">
+        <input id="searchPokemon" placeholder="Enter Pokemon name" />
+        <button id="searchButton">Search</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    async function getPokemon(pokemonName) {
+      try {
+        if (typeof pokemonName !== "string" || !pokemonName) {
+          throw new Error("messed up");
+        }
+        const res = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
+        );
+        if (!res.ok) throw new Error(res.status);
+        const pokemon = await res.json();
+        console.log(pokemon);
+        const name = pokemon.name;
+        const height = pokemon.height;
+        const weight = pokemon.weight;
+        const image = pokemon.sprites.front_default;
+
+        const types = pokemon.types.map((element) => element.type.name);
+        const sounds = pokemon.cries
+          ? Object.entries(pokemon.cries).map(([key, val]) => ({
+              soundType: key,
+              sound: val,
+            }))
+          : [];
+
+        const card = document.createElement("div");
+        card.classList.add("pokemon-card");
+
+        const img = document.createElement("img");
+        img.src = image;
+        card.appendChild(img);
+
+        const pokemonInfo = document.createElement("p");
+        pokemonInfo.style.margin = "5px";
+        pokemonInfo.style.fontSize = "12px";
+        pokemonInfo.innerHTML = `${name.toUpperCase()} <br> 
+  ${(height * 0.1).toFixed(1)} m / ${(weight / 10).toFixed(1)} kg <br> 
+  ${types.join(", ")}`;
+
+        card.appendChild(pokemonInfo);
+
+        const soundContainer = document.createElement("div");
+
+        for (let i = 0; i < sounds.length; i++) {
+          const button = document.createElement("button");
+          button.textContent = sounds[i].soundType;
+          button.addEventListener("click", () => {
+            const cry = new Audio(sounds[i].sound);
+            cry.play();
+          });
+          soundContainer.appendChild(button);
+        }
+        card.appendChild(soundContainer);
+        document.getElementById("output").appendChild(card);
+      } catch (error) {
+        const errorString = error.toString();
+        console.log("errorString =", errorString);
+        if (errorString.includes("messed up")) {
+          const newPokemon = prompt("Please enter a Pokemon name:");
+          if (newPokemon) getPokemon(newPokemon);
+        }
+
+        if (errorString.includes("404")) {
+          const newPokemon = prompt("Pokemon not found...");
+          if (newPokemon) getPokemon(newPokemon);
+        }
+      }
+    }
+
+    document.getElementById("searchButton").addEventListener("click", () => {
+      const name = document.getElementById("searchPokemon").value.trim();
+      getPokemon(name);
+    });
+  </script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="setTheme('light')">change theme to light</button>
+    <button onclick="setTheme('dark')">change theme to dark</button>
+  </body>
+
+  <script>
+    function setTheme(theme) {
+      localStorage.setItem("theme", theme);
+
+      document.body.style.background = theme === "dark" ? "#333" : "#fff";
+
+      document.body.style.color = theme === "dark" ? "#fff" : "#000";
+    }
+
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  </script>
+</html>

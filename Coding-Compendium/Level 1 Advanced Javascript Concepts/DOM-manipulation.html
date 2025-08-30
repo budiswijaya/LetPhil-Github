@@ -46,7 +46,7 @@
       }
 
       async function makeSections() {
-        await sleep[400];
+        await sleep(800);
 
         for (let i = 0; i < sectionHeaders.length; i++) {
           sectionHeaders[i].textContent = "Section";
@@ -54,7 +54,7 @@
           section[i].style.border = "1px solid grey";
           section[i].style.padding = "10px";
           section[i].style.margin = "3px 0";
-          await sleep[400];
+          await sleep(800);
         }
       }
 
